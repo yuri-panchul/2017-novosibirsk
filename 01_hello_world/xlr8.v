@@ -27,16 +27,6 @@ module xlr8
     output         ANA_UP,      // Choose ADC ref between 1=AREF pin and 0=regulated 3.3V
     output         I2C_ENABLE,  // 0=disable pullups on sda/scl, 1=enable pullups
 
-    // JTAG connector reused as digial IO. On that connector, pin 4 is power, pins 2&10 are ground
-    //   and pin 8 selects between gpio (low) and jtag (high) modes and has a pulldown.
-
-    inout          JT9,  // external pullup. JTAG function is TDI
-    inout          JT7,  // no JTAG function
-    inout          JT6,  // no JTAG function
-    inout          JT5,  // external pullup. JTAG function is TMS
-    inout          JT3,  // JTAG function TDO
-    inout          JT1,  // external pulldown, JTAG function is TCK
-
     // Interface to EEPROM or other device in SOIC-8 spot on the board
 
     inout          SOIC7,  // WP in the case of an 24AA128SM EEPROM

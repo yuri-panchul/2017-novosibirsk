@@ -84,22 +84,52 @@ set_location_assignment PIN_B11 -to ANA_UP
 set_location_assignment PIN_M10 -to I2C_ENABLE
 set_location_assignment PIN_M13 -to SCL
 set_location_assignment PIN_M12 -to SDA
-
-set_global_assignment -name ENABLE_JTAG_PIN_SHARING ON
-#set_location_assignment PIN_E5 -to JTAGEN
-
-set_location_assignment PIN_F5  -to JT9
-set_location_assignment PIN_L5  -to JT7
-set_location_assignment PIN_L4  -to JT6
-set_location_assignment PIN_G1  -to JT5
-set_location_assignment PIN_F6  -to JT3
-set_location_assignment PIN_G2  -to JT1
 set_location_assignment PIN_D11 -to SOIC7
 set_location_assignment PIN_D12 -to SOIC6
 set_location_assignment PIN_E13 -to SOIC5
 set_location_assignment PIN_C11 -to SOIC3
 set_location_assignment PIN_B13 -to SOIC2
 set_location_assignment PIN_C12 -to SOIC1
+
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A5
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A4
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A3
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A0
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DIG_IO_OE[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D13
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D12
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D11
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D10
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D9
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D8
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D7
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D6
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D4
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D3
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to RX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PIN13_LED
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to RESET_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ANA_UP
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to I2C_ENABLE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC7
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC6
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC5
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC3
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SOIC1
 
 set_global_assignment -name SEARCH_PATH  ..
 set_global_assignment -name VERILOG_FILE ../xlr8.v
