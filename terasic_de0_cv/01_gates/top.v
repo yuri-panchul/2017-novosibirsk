@@ -1,15 +1,15 @@
-module clock_divider_50_MHz_to_1_49_Hz
+module clock_divider_50_mhz_to_1_49_hz
 (
-    input  clock_50_MHz,
+    input  clock_50_mhz,
     input  reset_n,
-    output clock_1_49_Hz
+    output clock_1_49_hz
 );
 
-    // 50 MHz / 2 ** 25 = 1.49 Hz
+    // 50 mhz / 2 ** 25 = 1.49 hz
 
     reg [24:0] counter;
 
-    always @ (posedge clock_50_MHz)
+    always @ (posedge clock_50_mhz)
     begin
         if (! reset_n)
             counter <= 0;
@@ -17,7 +17,7 @@ module clock_divider_50_MHz_to_1_49_Hz
             counter <= counter + 1;
     end
 
-    assign clock_1_49_Hz = counter [24];
+    assign clock_1_49_hz = counter [24];
 
 endmodule
 
@@ -77,7 +77,7 @@ endmodule
 
 //--------------------------------------------------------------------
 
-// Smiling Snail FSM derived from David Harris & Sarah Harris
+// smiling snail fsm derived from david harris & sarah harris
 
 module pattern_fsm_moore
 (
@@ -87,7 +87,7 @@ module pattern_fsm_moore
     output y
 );
 
-    parameter [1:0] S0 = 0, S1 = 1, S2 = 2;
+    parameter [1:0] s0 = 0, s1 = 1, s2 = 2;
 
     reg [1:0] state, next_state;
 
@@ -95,7 +95,7 @@ module pattern_fsm_moore
 
     always @ (posedge clock or negedge reset_n)
         if (! reset_n)
-            state <= S0;
+            state <= s0;
         else
             state <= next_state;
 
@@ -104,33 +104,33 @@ module pattern_fsm_moore
     always @*
         case (state)
 
-        S0:
+        s0:
             if (a)
-                next_state = S0;
+                next_state = s0;
             else
-                next_state = S1;
+                next_state = s1;
 
-        S1:
+        s1:
             if (a)
-                next_state = S2;
+                next_state = s2;
             else
-                next_state = S1;
+                next_state = s1;
 
-        S2:
+        s2:
             if (a)
-                next_state = S0;
+                next_state = s0;
             else
-                next_state = S1;
+                next_state = s1;
 
         default:
 
-            next_state = S0;
+            next_state = s0;
 
         endcase
 
     // output logic
 
-    assign y = (state == S2);
+    assign y = (state == s2);
 
 endmodule
 
@@ -139,66 +139,66 @@ endmodule
 
 module top
 (
-    input        CLOCK_50,
-    input        RESET_N,
-    input  [3:0] KEY,
-    input  [9:0] SW,
-    output [9:0] LEDR,
-    output [6:0] HEX0,
-    output [6:0] HEX1,
-    output [6:0] HEX2,
-    output [6:0] HEX3,
-    output [6:0] HEX4,
-    output [6:0] HEX5
+    input        clock,
+    input        reset_n,
+    input  [3:0] key,
+    input  [9:0] sw,
+    output [9:0] led,
+    output [6:0] hex0,
+    output [6:0] hex1,
+    output [6:0] hex2,
+    output [6:0] hex3,
+    output [6:0] hex4,
+    output [6:0] hex5
 );
                  
-    wire clock, shift_out, fsm_out;
+    wire slow_clock, shift_out, fsm_out;
 
-    clock_divider_50_MHz_to_1_49_Hz clock_divider_50_MHz_to_1_49_Hz
+    clock_divider_50_mhz_to_1_49_hz clock_divider_50_mhz_to_1_49_hz
     (
-        .clock_50_MHz  ( CLOCK_50 ),
-        .reset_n       ( RESET_N  ),
-        .clock_1_49_Hz ( clock    )
+        .clock_50_mhz  ( clock      ),
+        .reset_n       ( reset_n    ),
+        .clock_1_49_hz ( slow_clock )
     );
 
     shift_register_with_enable shift_register_with_enable
     (
-        .clock   (   clock     ),
-        .reset_n (   RESET_N   ),
-        .in      ( ~ KEY [1]   ),
-        .enable  (   KEY [0]   ),
-        .out     (   shift_out ),
-        .data    (   LEDR      )
+        .clock   (   slow_clock ),
+        .reset_n (   reset_n    ),
+        .in      ( ~ key [1]    ),
+        .enable  (   key [0]    ),
+        .out     (   shift_out  ),
+        .data    (   led        )
     );           
 
     single_digit_display digit_0
     (
-        .digit          ( LEDR [3:0] ),
-        .seven_segments ( HEX0 )
+        .digit          ( led [3:0] ),
+        .seven_segments ( hex0 )
     );
 
     single_digit_display digit_1
     (
-        .digit          ( LEDR [7:4] ),
-        .seven_segments ( HEX1 )
+        .digit          ( led [7:4] ),
+        .seven_segments ( hex1 )
     );
 
     single_digit_display digit_2
     (
-        .digit          ( { 2'b0 , LEDR [9:8] } ),
-        .seven_segments ( HEX2 )
+        .digit          ( { 2'b0 , led [9:8] } ),
+        .seven_segments ( hex2 )
     );
 
     pattern_fsm_moore pattern_fsm_moore
     (
-        .clock   ( clock     ),
-        .reset_n ( RESET_N   ),
-        .a       ( shift_out ),
-        .y       ( fsm_out   )
+        .clock   ( slow_clock ),
+        .reset_n ( reset_n    ),
+        .a       ( shift_out  ),
+        .y       ( fsm_out    )
     );
 
-    assign HEX3 = 7'h7f;
-    assign HEX4 = 7'h7f;
-    assign HEX5 = fsm_out ? 7'h40 : 7'h7f;
+    assign hex3 = 7'h7f;
+    assign hex4 = 7'h7f;
+    assign hex5 = fsm_out ? 7'h40 : 7'h7f;
 
 endmodule
