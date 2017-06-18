@@ -151,7 +151,7 @@ module top
     output [7:0] hex5
 );
 
-    wire reset_n = sw [9];
+    wire reset_n = ~ sw [9];
 
     wire slow_clock, shift_out, fsm_out;
 
