@@ -45,8 +45,8 @@ module top
     // Логические элементы И-НЕ и ИЛИ-НЕ (полезны для объяснения,
     // как логический элемент строится из транзисторов
 
-    assign led [4] = a ~& b;
-    assign led [5] = a ~| b;
+    assign led [4] = ~& { a, b };
+    assign led [5] = ~| { a, b };
 
     // De Morgan law illustration
     
@@ -68,8 +68,8 @@ endmodule
 
 module top_2
 (
-    input  [1:0] key,
-    output [9:0] led
+    input      [1:0] key,
+    output reg [9:0] led
 );
 
     reg a, b;
@@ -85,8 +85,8 @@ module top_2
     
         led [3] = a ^ b;
 
-        led [4] = a ~& b;
-        led [5] = a ~| b;
+        led [4] = ~& { a, b };
+        led [5] = ~| { a, b };
 
         led [6] = ~ ( a &   b ) ;
         led [7] = ~   a | ~ b   ;
